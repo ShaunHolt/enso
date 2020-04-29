@@ -10,6 +10,8 @@ import org.enso.interpreter.node.expression.builtin.error.PanicNode;
 import org.enso.interpreter.node.expression.builtin.error.ThrowErrorNode;
 import org.enso.interpreter.node.expression.builtin.function.ExplicitCallFunctionNode;
 import org.enso.interpreter.node.expression.builtin.io.PrintNode;
+import org.enso.interpreter.node.expression.builtin.java.AddToJavaClassPathNode;
+import org.enso.interpreter.node.expression.builtin.java.LookupJavaClassNode;
 import org.enso.interpreter.node.expression.builtin.number.AddNode;
 import org.enso.interpreter.node.expression.builtin.number.DivideNode;
 import org.enso.interpreter.node.expression.builtin.number.ModNode;
@@ -82,6 +84,8 @@ public class Builtins {
     AtomConstructor error = new AtomConstructor("Error", scope).initializeFields();
     AtomConstructor state = new AtomConstructor("State", scope).initializeFields();
 
+    AtomConstructor java = new AtomConstructor("Java", scope).initializeFields();
+
     scope.registerConstructor(unit);
     scope.registerConstructor(any);
     scope.registerConstructor(number);
@@ -98,6 +102,8 @@ public class Builtins {
 
     scope.registerConstructor(syntaxError);
     scope.registerConstructor(compileError);
+
+    scope.registerConstructor(java);
 
     scope.registerMethod(io, "println", PrintNode.makeFunction(language));
 
@@ -125,6 +131,9 @@ public class Builtins {
     scope.registerMethod(text, "+", ConcatNode.makeFunction(language));
     scope.registerMethod(any, "to_text", AnyToTextNode.makeFunction(language));
     scope.registerMethod(any, "json_serialize", JsonSerializeNode.makeFunction(language));
+
+    scope.registerMethod(java, "add_to_class_path", AddToJavaClassPathNode.makeFunction(language));
+    scope.registerMethod(java, "lookup_class", LookupJavaClassNode.makeFunction(language));
   }
 
   /**
