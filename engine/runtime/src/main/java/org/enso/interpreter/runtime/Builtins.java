@@ -11,6 +11,8 @@ import org.enso.interpreter.node.expression.builtin.error.ThrowErrorNode;
 import org.enso.interpreter.node.expression.builtin.function.ExplicitCallFunctionNode;
 import org.enso.interpreter.node.expression.builtin.io.PrintNode;
 import org.enso.interpreter.node.expression.builtin.java.AddToJavaClassPathNode;
+import org.enso.interpreter.node.expression.builtin.java.Execute2Node;
+import org.enso.interpreter.node.expression.builtin.java.GetMemberNode;
 import org.enso.interpreter.node.expression.builtin.java.LookupJavaClassNode;
 import org.enso.interpreter.node.expression.builtin.number.AddNode;
 import org.enso.interpreter.node.expression.builtin.number.DivideNode;
@@ -134,6 +136,8 @@ public class Builtins {
 
     scope.registerMethod(java, "add_to_class_path", AddToJavaClassPathNode.makeFunction(language));
     scope.registerMethod(java, "lookup_class", LookupJavaClassNode.makeFunction(language));
+    scope.registerMethod(java, "get_member", GetMemberNode.makeFunction(language));
+    scope.registerMethod(java, "execute2", Execute2Node.makeFunction(language));
   }
 
   /**

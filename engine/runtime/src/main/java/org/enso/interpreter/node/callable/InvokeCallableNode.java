@@ -99,7 +99,7 @@ public abstract class InvokeCallableNode extends BaseNode {
 
     this.invokeFunctionNode =
         InvokeFunctionNode.build(schema, defaultsExecutionMode, argumentsExecutionMode);
-    this.invokeJavaNode = new InvokeJavaNode(schema.length);
+    this.invokeJavaNode = new InvokeJavaNode(schema.length, thisArgumentPosition);
     this.methodResolverNode = MethodResolverNode.build();
   }
 
@@ -171,12 +171,12 @@ public abstract class InvokeCallableNode extends BaseNode {
         selfArgument = selfResult.getValue();
         state = selfResult.getState();
       }
-      if (selfArgument instanceof JavaObject) {
-
-      } else {
-        Function function = methodResolverNode.execute(symbol, selfArgument);
-        return this.invokeFunctionNode.execute(function, callerFrame, state, arguments);
-      }
+      //      if (selfArgument instanceof JavaObject) {
+      //        return invokeJavaNode.execute((JavaObject) selfArgument, symbol, arguments, state);
+      //      } else {
+      Function function = methodResolverNode.execute(symbol, selfArgument);
+      return this.invokeFunctionNode.execute(function, callerFrame, state, arguments);
+      //      }
     } else {
       throw new RuntimeException("Currying without `this` argument is not yet supported.");
     }
